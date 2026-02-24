@@ -198,10 +198,10 @@
               var $artist = $("#cc_strinfo_trackartist_bnmallorca");
               var titleText = ($title.text() || "").trim().toLowerCase();
               var artistText = ($artist.text() || "").trim().toLowerCase();
-              if (titleText === "" || titleText === "desconocido") {
+              if (titleText === "" || titleText === "desconocido" || titleText === "unknown") {
                 $title.text("Radio");
               }
-              if (artistText === "" || artistText === "unknown" || artistText === "unknoun") {
+              if (artistText === "" || artistText === "desconocido" || artistText === "unknown") {
                 $artist.text("BN MCA");
               }
             },
