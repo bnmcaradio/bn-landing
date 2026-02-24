@@ -199,6 +199,18 @@
       <script language="javascript">
         window.centovacast = {
           options: {
+            streaminfo: {
+              after_change_callback: function (data) {
+                var $title = $("#cc_strinfo_tracktitle_bnmallorca");
+                var $artist = $("#cc_strinfo_trackartist_bnmallorca");
+                if (!$title.text() || $title.text().trim() === "") {
+                  $title.text("Radio");
+                }
+                if (!$artist.text() || $artist.text().trim() === "") {
+                  $artist.text("BN MCA");
+                }
+              },
+            },
             recenttracks: {
               poll_limit: 60000000, // number of times to update the tracks list before stopping
               poll_frequency: 10000, // how often (in milliseconds) to poll the server
