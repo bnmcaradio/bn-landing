@@ -192,20 +192,6 @@
     <script language="javascript">
       window.centovacast = {
         options: {
-          streaminfo: {
-            after_change_callback: function (data) {
-              var $title = $("#cc_strinfo_tracktitle_bnmallorca");
-              var $artist = $("#cc_strinfo_trackartist_bnmallorca");
-              var titleText = ($title.text() || "").trim().toLowerCase();
-              var artistText = ($artist.text() || "").trim().toLowerCase();
-              if (titleText === "" || titleText === "desconocido" || titleText === "unknown") {
-                $title.text("Radio");
-              }
-              if (artistText === "" || artistText === "desconocido" || artistText === "unknown") {
-                $artist.text("BN MCA");
-              }
-            },
-          },
           recenttracks: {
             poll_limit: 60000000, // number of times to update the tracks list before stopping
             poll_frequency: 10000, // how often (in milliseconds) to poll the server
@@ -248,6 +234,35 @@
       Loading ...
     </div>
   </div>
+
+  <script>
+    // Fallback: replace "Desconocido"/"Unknown" with "Radio"/"BN MCA"
+    function fixTrackMetadata(container) {
+      var titles = container.querySelectorAll(".cctitle");
+      var artists = container.querySelectorAll(".ccartist");
+      for (var i = 0; i < titles.length; i++) {
+        var t = titles[i].textContent.trim().toLowerCase();
+        if (t === "" || t === "desconocido" || t === "unknown") {
+          titles[i].textContent = "Radio";
+        }
+      }
+      for (var j = 0; j < artists.length; j++) {
+        var a = artists[j].textContent.trim().toLowerCase();
+        if (a === "" || a === "desconocido" || a === "unknown") {
+          artists[j].textContent = "BN MCA";
+        }
+      }
+    }
+
+    // Watch for changes in the recenttracks widget
+    var tracksContainer = document.getElementById("cc_recenttracks_bnmallorca");
+    if (tracksContainer) {
+      var observer = new MutationObserver(function () {
+        fixTrackMetadata(tracksContainer);
+      });
+      observer.observe(tracksContainer, { childList: true, subtree: true });
+    }
+  </script>
 
   <script language="javascript" type="text/javascript" src="https://topradio.one/system/streaminfo.js"></script>
   <script language="javascript" type="text/javascript" src="https://topradio.one/system/recenttracks.js"></script>
