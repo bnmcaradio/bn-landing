@@ -65,3 +65,4 @@ static/
 ## Deployment
 
 Deployed automatically to Cloudflare Pages. The build injects `CF_PAGES_COMMIT_SHA` as the version identifier in the footer.
+
